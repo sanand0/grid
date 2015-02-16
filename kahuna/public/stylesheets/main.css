@@ -993,6 +993,34 @@ FIXME: what to do with touch devices
     max-height: calc(100vh - 68px);
 }
 
+.image-exports {
+    box-sizing: border-box;
+    float: right;
+    height: calc(100vh - 48px); /* viewport - top-bar */
+    width: 130px;
+    padding: 10px 10px;
+    overflow: auto;
+    border-left: 1px solid #222;
+}
+.image-exports:after {
+    clear: both;
+    content:  " ";
+    display:  table;
+}
+
+.image-exports__original {
+    margin-bottom: 10px;
+}
+
+
+.image-new-crop {
+    display: block;
+    border: 1px dashed #aaa;
+    padding: 15px 0;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
 .image-details {
     box-sizing: border-box;
     float: right;
@@ -1000,7 +1028,7 @@ FIXME: what to do with touch devices
     height: calc(100vh - 48px); /* viewport - top-bar */
     padding: 10px 10px;
     overflow: auto;
-    width: 300px;
+    width: 270px;
     border-left: 1px solid #222;
 }
 .image-details:after {
@@ -1010,7 +1038,7 @@ FIXME: what to do with touch devices
 }
 
 .image-holder {
-    margin-right: 300px;
+    margin-right: 400px;
 }
 
 .image-info {
@@ -1181,8 +1209,8 @@ FIXME: what to do with touch devices
 
 .image-crop {
     border: solid 5px transparent;
-    max-width: 140px;
-    margin-right: 5px;
+    /* allow border to eat the container margins */
+    margin: 0 -5px;
     box-sizing: border-box;
 }
 .image-crop--selected,
@@ -1199,7 +1227,8 @@ FIXME: what to do with touch devices
     width: 100%;
 }
 
-.image-crop__aspect-ratio {
+/* FIXME: not nested inside .image-crop! */
+.image-crop__description {
     background: #333;
     padding: 2px;
     font-size: 1.2rem;
