@@ -25,6 +25,7 @@ object Config extends CommonPlayAppProperties {
   val topicArn = properties("sns.topic.arn")
 
   val rootUri = services.cropperBaseUri
+  val apiUri = services.apiBaseUri
   val kahunaUri = services.kahunaBaseUri
   val loginUri = services.loginUri
 

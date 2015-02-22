@@ -39,8 +39,38 @@ object Application extends Controller with ArgoHelpers {
     val indexLinks = List(
       Link("crop", s"$rootUri/crops")
     )
+
+/* TODO:
+    val response = Json.obj(
+      "data"  -> Json.obj("description" -> "This is the Cropper Service"),
+      "links" -> Json.arr(
+        Json.obj("rel" -> "media-api", "href" -> apiUri),
+        Json.obj("rel" -> "crop", "href" -> s"$rootUri/crops")
+      ),
+      "actions" -> Json.arr(
+        Json.obj(
+          "name"   -> "crop",
+          "href"   -> s"$rootUri/crops",
+          "method" -> "post",
+          "body"   -> Json.obj(
+            "type" -> "object",
+            "title" -> "CropSpec",
+            "properties" -> Json.obj(
+              "source"      -> Json.obj("type" -> "string",  "format" -> "uri"),
+              "x"           -> Json.obj("type" -> "integer", "minimum" -> 0),
+              "y"           -> Json.obj("type" -> "integer", "minimum" -> 0),
+              "width"       -> Json.obj("type" -> "integer", "minimum" -> 0),
+              "height"      -> Json.obj("type" -> "integer", "minimum" -> 0),
+              "aspectRatio" -> Json.obj("type" -> "string",  "pattern" -> "^[1-9][0-9]*:[1-9][0-9]*$")
+            ),
+            "required" -> Json.arr("source", "x", "y", "width", "height")
+          )
+        )
+      )
+ */
     respond(indexData, indexLinks)
   }
+  // FIXME: if failed, return error
 
   def index = Authenticated { indexResponse }
 
