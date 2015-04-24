@@ -42,7 +42,12 @@ object MediaApi extends Controller with ArgoHelpers {
 
   import Config.{rootUri, cropperUri, loaderUri, metadataUri, kahunaUri, imgopsUri, loginUri}
 
-  val Authenticated = auth.Authenticated(keyStore, loginUri, Config.kahunaUri)
+  val keyStore = new KeyStore(Config.keyStoreBucket, Config.awsCredentials)
+  val Authenticated = if (! Config.insecure) {
+    auth.Authenticated(keyStore, loginUri, Config.kahunaUri)
+  } else {
+    Action
+  }
 
 
   val searchParamList = List("q", "ids", "offset", "length", "fromDate", "toDate",

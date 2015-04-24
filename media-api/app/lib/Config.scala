@@ -37,6 +37,8 @@ object Config extends CommonPlayAppConfig with CommonPlayAppProperties {
 
   val configBucket: String = properties("s3.config.bucket")
 
+  val insecure: Boolean = properties.get("insecure").exists(_.toBoolean)
+
   // Note: had to make these lazy to avoid init order problems ;_;
 
   lazy val rootUri: String = services.apiBaseUri
