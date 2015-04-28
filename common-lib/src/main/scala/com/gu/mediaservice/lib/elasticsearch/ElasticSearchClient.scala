@@ -9,16 +9,16 @@ import org.elasticsearch.common.transport.InetSocketTransportAddress
 import play.api.Logger
 
 
-trait ElasticSearchClient {
+trait ElasticSearchClient extends ElasticSearchClientStrategy with ElasticSearchConfig {
 
   def host: String
   def port: Int
   def cluster: String
 
-  protected val imagesIndexPrefix = "images"
-  protected val imagesAlias = "imagesAlias"
-  protected val imageType = "image"
-
+//  protected val imagesIndexPrefix = "images"
+//  protected val imagesAlias = "imagesAlias"
+//  protected val imageType = "image"
+//
   val initialImagesIndex = "images"
 
   private lazy val settings: Settings =

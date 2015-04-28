@@ -16,15 +16,16 @@ import org.joda.time.DateTime
 import groovy.json.JsonSlurper
 import _root_.play.api.libs.json._
 
-import com.gu.mediaservice.lib.elasticsearch.ElasticSearchClient
+import com.gu.mediaservice.lib.elasticsearch.{ElasticSearchClient, ElasticSearchClientStrategy, ElasticSearchConfig}
 import com.gu.mediaservice.syntax._
 
 import ThrallMetrics._
 
-
 object ImageNotDeletable extends Throwable("Image cannot be deleted")
 
-object ElasticSearch extends ElasticSearchClient {
+object ElasticSearch extends ElasticSearchTrait with ElasticSearchClient
+
+trait ElasticSearchTrait extends ElasticSearchClientStrategy with ElasticSearchConfig {
 
   import Config.persistenceIdentifier
   import com.gu.mediaservice.lib.formatting._
