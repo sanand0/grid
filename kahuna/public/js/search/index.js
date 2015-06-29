@@ -41,7 +41,11 @@ search.config(['$stateProvider',
                 });
                 return {state: $dsr$.redirect.state, params};
             }]
-        }
+        },
+        // FIXME: inject into template!?
+        controller: ['windsockApiUri', function(windsockApiUri) {
+            this.windsockApiUri = windsockApiUri;
+        }]
     });
 
     $stateProvider.state('search.results', {

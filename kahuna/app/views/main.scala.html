@@ -1,4 +1,5 @@
 @(mediaApiUri: String,
+  windsockApiUri: Option[String],
   watUri: Option[String],
   mixpanelToken: Option[String],
   sentryDsn: Option[String])
@@ -12,6 +13,9 @@
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/grid-favicon-32.png")"/>
     <link rel="assets" href="@routes.Assets.at("")"/>
     <link rel="media-api-uri" href="@mediaApiUri" />
+@windsockApiUri.map { uri =>
+    <link rel="windsock-api-uri" href="@uri" />
+}
 @watUri.map { uri =>
     <link rel="wat" href="@uri" />
 }
@@ -27,6 +31,27 @@
         .ng-cloak { display: none }
     </style>
 
+    <script src="@routes.Assets.at("jspm_packages/github/webcomponents/webcomponentsjs@0.7.5/webcomponents-lite.min.js")"></script>
+  <script>
+/*
+    window.Polymer = window.Polymer || {};
+    window.Polymer.dom = 'shadow';
+*/
+  </script>
+
+    <script src="@routes.Assets.at("jspm_packages/github/jmcriffey/bower-traceur-runtime@0.0.88/traceur-runtime.min.js")"></script>
+    <script src="@routes.Assets.at("jspm_packages/system.js")"></script>
+    <script src="@routes.Assets.at("config.js")"></script>
+    <script>
+      System.import("js/main").catch(function(error) {
+          setTimeout(function(){ throw error; });
+      });
+    </script>
+
+    <!-- FIXME: path? install via jspm? -->
+    <link rel="import" href="???/dist/windsock-widget.html">
+    <!-- <link rel="import" href="@routes.Assets.at("stylesheets/windsock.html")"> -->
+
   </head>
   <body>
     <p class="loader" ng:hide="true">Loading the grid…</p>
@@ -35,12 +60,17 @@
 
     <ui-global-errors></ui-global-errors>
 
-    <script src="@routes.Assets.at("jspm_packages/system.js")"></script>
-    <script src="@routes.Assets.at("config.js")"></script>
-    <script>
-      System.import("js/main").catch(function(error) {
-          setTimeout(function(){ throw error; });
-      });
-    </script>
+    <!-- <script src="@routes.Assets.at("jspm_packages/system.js")"></script> -->
+    <!-- <script src="@routes.Assets.at("config.js")"></script> -->
+    <!-- <script> -->
+    <!--   // FIXME: could this be written to config.js instead? annoying to have to override -->
+    <!--   System.config({ -->
+    <!--       baseURL: "/assets" -->
+    <!--   }); -->
+
+    <!--   System.import("js/main").catch(function(error) { -->
+    <!--       setTimeout(function(){ throw error; }); -->
+    <!--   }); -->
+    <!-- </script> -->
   </body>
 </html>

@@ -25,12 +25,14 @@ import './components/gr-icon/gr-icon';
 
 // TODO: move to an async config to remove deps on play
 var apiLink = document.querySelector('link[rel="media-api-uri"]');
+var windsockLink = document.querySelector('link[rel="windsock-api-uri"]');
 var mixpanelTokenMeta = document.querySelector('meta[name="mixpanel-token"]');
 var sentryDsnLink = document.querySelector('link[rel="sentry-dsn"]');
 var assetsRootLink = document.querySelector('link[rel="assets"]');
 
 var config = {
     mediaApiUri: apiLink.getAttribute('href'),
+    windsockApiUri: windsockLink.getAttribute('href'),
     mixpanelToken: mixpanelTokenMeta && mixpanelTokenMeta.getAttribute('content'),
     sentryDsn: sentryDsnLink && sentryDsnLink.getAttribute('href'),
     assetsRoot: assetsRootLink && assetsRootLink.getAttribute('href'),

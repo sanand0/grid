@@ -1763,3 +1763,64 @@ ui-archiver .archiver:hover {
 .full-width {
     width: 100%;
 }
+
+
+
+.windsock-status-view.label {
+    display: none;
+}
+
+windsock-status-view {
+    display: block;
+    background-color: #555;
+    border: 1px solid #666;
+    border-radius: 10px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+windsock-widget {
+    position: relative;
+    margin-left: 10px;
+}
+
+windsock-notices-view {
+    position: absolute;
+    margin-top: 10px;
+    padding: 10px;
+    width: 300px;
+    right: 10px;
+    background-color: #555;
+    border: 1px solid #666;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+}
+
+.notice__type {
+    float: right;
+    border-radius: 5px;
+    padding: 0 6px;
+    color: white;
+}
+.notice__type--announcement {
+    background-color: #00adee;
+}
+.notice__type--minor {
+    background-color: #ffbc01;
+}
+.notice__type--critical {
+    background-color: darkred;
+}
+
+.notice__created {
+    display: none;
+}
+.notice__updated {
+    display: block;
+    color: #999;
+}
+
+.windsock-notices-view li + li {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #666;
+}
