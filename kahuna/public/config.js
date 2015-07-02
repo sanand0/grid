@@ -10,9 +10,10 @@ System.config({
 
 System.config({
   "map": {
-    "angular": "github:angular/bower-angular@1.3.15",
-    "angular-animate": "github:angular/bower-angular-animate@1.3.15",
+    "angular": "github:angular/bower-angular@1.3.16",
+    "angular-animate": "github:angular/bower-angular-animate@1.3.16",
     "angular-elastic": "github:monospaced/angular-elastic@2.4.2",
+    "angular-material": "github:angular/bower-material@0.10.0",
     "angular-messages": "github:angular/bower-angular-messages@1.3.15",
     "angular-ui-router": "github:angular-ui/ui-router@0.2.13",
     "angular-ui-router-extras": "github:christopherthielen/ui-router-extras@0.0.13",
@@ -33,10 +34,19 @@ System.config({
     "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88",
     "ua-parser-js": "npm:ua-parser-js@0.7.3",
     "github:angular-ui/ui-router@0.2.13": {
-      "angular": "github:angular/bower-angular@1.3.15"
+      "angular": "github:angular/bower-angular@1.3.16"
     },
-    "github:angular/bower-angular-animate@1.3.15": {
-      "angular": "github:angular/bower-angular@1.3.15"
+    "github:angular/bower-angular-animate@1.3.16": {
+      "angular": "github:angular/bower-angular@1.3.16"
+    },
+    "github:angular/bower-angular-aria@1.4.1": {
+      "angular": "github:angular/bower-angular@1.3.16"
+    },
+    "github:angular/bower-material@0.10.0": {
+      "angular": "github:angular/bower-angular@1.3.16",
+      "angular-animate": "github:angular/bower-angular-animate@1.3.16",
+      "angular-aria": "github:angular/bower-angular-aria@1.4.1",
+      "css": "github:systemjs/plugin-css@0.1.9"
     },
     "github:dbushell/Pikaday@1.3.2": {
       "css": "github:systemjs/plugin-css@0.1.9"
@@ -45,14 +55,14 @@ System.config({
       "assert": "npm:assert@1.3.0"
     },
     "github:jspm/nodelibs-buffer@0.1.0": {
-      "buffer": "npm:buffer@3.2.1"
+      "buffer": "npm:buffer@3.3.0"
     },
-    "github:jspm/nodelibs-events@0.1.0": {
-      "events-browserify": "npm:events-browserify@0.0.1"
+    "github:jspm/nodelibs-events@0.1.1": {
+      "events": "npm:events@1.0.2"
     },
     "github:jspm/nodelibs-http@1.7.1": {
       "Base64": "npm:Base64@0.2.1",
-      "events": "github:jspm/nodelibs-events@0.1.0",
+      "events": "github:jspm/nodelibs-events@0.1.1",
       "inherits": "npm:inherits@2.0.1",
       "stream": "github:jspm/nodelibs-stream@0.1.0",
       "url": "github:jspm/nodelibs-url@0.1.0",
@@ -80,7 +90,7 @@ System.config({
       "util": "npm:util@0.10.3"
     },
     "github:systemjs/plugin-css@0.1.9": {
-      "clean-css": "npm:clean-css@3.2.5",
+      "clean-css": "npm:clean-css@3.3.4",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "path": "github:jspm/nodelibs-path@0.1.0"
     },
@@ -89,30 +99,30 @@ System.config({
       "jquery": "github:components/jquery@2.1.1"
     },
     "github:vitalets/angular-xeditable@0.1.9": {
-      "angular": "github:angular/bower-angular@1.3.15",
+      "angular": "github:angular/bower-angular@1.3.16",
       "css": "github:systemjs/plugin-css@0.1.9"
     },
-    "npm:amdefine@0.1.0": {
+    "npm:amdefine@0.1.1": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "module": "github:jspm/nodelibs-module@0.1.0",
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:any-http-angular@0.1.0": {
-      "angular": "github:angular/bower-angular@1.3.15"
+      "angular": "github:angular/bower-angular@1.3.16"
     },
     "npm:any-promise-angular@0.1.1": {
-      "angular": "github:angular/bower-angular@1.3.15"
+      "angular": "github:angular/bower-angular@1.3.16"
     },
     "npm:assert@1.3.0": {
       "util": "npm:util@0.10.3"
     },
-    "npm:buffer@3.2.1": {
+    "npm:buffer@3.3.0": {
       "base64-js": "npm:base64-js@0.0.8",
-      "ieee754": "npm:ieee754@1.1.4",
+      "ieee754": "npm:ieee754@1.1.6",
       "is-array": "npm:is-array@1.0.1"
     },
-    "npm:clean-css@3.2.5": {
+    "npm:clean-css@3.3.4": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "commander": "npm:commander@2.8.1",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
@@ -127,7 +137,7 @@ System.config({
     },
     "npm:commander@2.8.1": {
       "child_process": "github:jspm/nodelibs-child_process@0.1.0",
-      "events": "github:jspm/nodelibs-events@0.1.0",
+      "events": "github:jspm/nodelibs-events@0.1.1",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "graceful-readlink": "npm:graceful-readlink@1.0.1",
       "path": "github:jspm/nodelibs-path@0.1.0",
@@ -135,9 +145,6 @@ System.config({
     },
     "npm:core-util-is@1.0.1": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0"
-    },
-    "npm:events-browserify@0.0.1": {
-      "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:graceful-readlink@1.0.1": {
       "fs": "github:jspm/nodelibs-fs@0.1.2"
@@ -152,7 +159,7 @@ System.config({
       "os": "github:jspm/nodelibs-os@0.1.0"
     },
     "npm:pandular@0.1.5": {
-      "angular": "github:angular/bower-angular@1.3.15",
+      "angular": "github:angular/bower-angular@1.3.16",
       "panda-session": "npm:panda-session@0.1.4"
     },
     "npm:path-browserify@0.0.0": {
@@ -164,7 +171,7 @@ System.config({
     "npm:readable-stream@1.1.13": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "core-util-is": "npm:core-util-is@1.0.1",
-      "events": "github:jspm/nodelibs-events@0.1.0",
+      "events": "github:jspm/nodelibs-events@0.1.1",
       "inherits": "npm:inherits@2.0.1",
       "isarray": "npm:isarray@0.0.1",
       "process": "github:jspm/nodelibs-process@0.1.1",
@@ -174,13 +181,13 @@ System.config({
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
     "npm:source-map@0.4.2": {
-      "amdefine": "npm:amdefine@0.1.0",
+      "amdefine": "npm:amdefine@0.1.1",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:stream-browserify@1.0.0": {
-      "events": "github:jspm/nodelibs-events@0.1.0",
+      "events": "github:jspm/nodelibs-events@0.1.1",
       "inherits": "npm:inherits@2.0.1",
       "readable-stream": "npm:readable-stream@1.1.13"
     },
@@ -188,7 +195,7 @@ System.config({
       "buffer": "github:jspm/nodelibs-buffer@0.1.0"
     },
     "npm:theseus-angular@0.3.0": {
-      "angular": "github:angular/bower-angular@1.3.15",
+      "angular": "github:angular/bower-angular@1.3.16",
       "any-http-angular": "npm:any-http-angular@0.1.0",
       "any-promise-angular": "npm:any-promise-angular@0.1.1",
       "theseus": "npm:theseus@0.4.0"

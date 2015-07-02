@@ -1,5 +1,7 @@
 import angular from 'angular';
 import 'angular-elastic';
+import 'angular-material';
+
 import template from './required-metadata-editor.html!text';
 
 import '../../edits/service';
@@ -8,7 +10,8 @@ import '../../forms/datalist';
 export var jobs = angular.module('kahuna.upload.jobs.requiredMetadataEditor', [
     'kahuna.edits.service',
     'kahuna.forms.datalist',
-    'monospaced.elastic'
+    'monospaced.elastic',
+    'ngMaterial'
 ]);
 
 
@@ -17,6 +20,13 @@ jobs.controller('RequiredMetadataEditorCtrl',
                  function($rootScope, $scope, $window, mediaApi, editsService) {
 
     var ctrl = this;
+
+    ctrl.querySearch = function(searchText) {
+        return ctrl.metadataSearch('credit', searchText);
+    };
+    ctrl.selectedItemChange = function(item) {
+        if(item) { ctrl.save(); }
+    };
 
     ctrl.saving = false;
     ctrl.disabled = () => Boolean(ctrl.saving || ctrl.externallyDisabled);
@@ -34,6 +44,8 @@ jobs.controller('RequiredMetadataEditorCtrl',
             }
         });
 
+        cleanMetadata["credit"] = ctrl.metadata.credit ? ctrl.metadata.credit.key : "";
+
         editsService.
             update(ctrl.resource, cleanMetadata, ctrl.image).
             then(resource => {
@@ -45,7 +57,12 @@ jobs.controller('RequiredMetadataEditorCtrl',
 
     ctrl.metadataSearch = (field, q) => {
         return mediaApi.metadataSearch(field,  { q }).then(resource => {
-            return resource.data.map(d => d.key);
+            return resource.data.map((d) => {
+                return {
+                    key: d.key,
+                    display: d.key
+                };
+            });
         });
     };
 
@@ -66,7 +83,10 @@ jobs.controller('RequiredMetadataEditorCtrl',
         // we only want a subset of the data
         return {
             byline: originalMetadata.byline,
-            credit: originalMetadata.credit,
+            credit: {
+                key: originalMetadata.credit,
+                display: originalMetadata.credit
+            },
             description: originalMetadata.description
         };
     }

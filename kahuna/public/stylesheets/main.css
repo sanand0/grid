@@ -70,16 +70,18 @@
     to { transform: rotate(360deg); }
 }
 
-html {
+html.grid-html {
     font: 62.5%/1.5 "Guardian Agate Sans Web", Georgia;
+    background: #333;
 }
 
-body {
+body.grid-body {
     background-color: #333;
     color: #ccc;
     font-size: 1.6rem;
     margin: 0;
     padding: 0 0 0 0;
+    height: auto;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -111,10 +113,10 @@ a:hover {
     color: #00adee;
 }
 
-input,
-option,
-textarea,
-button {
+.grid-html input,
+.grid-html option,
+.grid-html textarea,
+.grid-html button {
     font-family: "Guardian Agate Sans Web", Helvetica, Arial;
     font-size: 1.4rem;
 }

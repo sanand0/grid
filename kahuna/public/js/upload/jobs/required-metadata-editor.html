@@ -47,21 +47,35 @@
             >⇔</button>
 
         </label>
+
         <div class="job-info--editor__field">
             <div class="job-info--editor__label">Credit</div>
 
-            <gr:datalist
-                class="job-info--editor__input"
-                gr:search="ctrl.metadataSearch('credit', q)">
+            <md-autocomplete required
+                md-input-name="autocomplete"
+                ng-disabled="ctrl.disabled()"
+                md-selected-item="ctrl.metadata.credit"
+                md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                md-search-text="ctrl.searchText"
+                md-selected-item-change="ctrl.selectedItemChange(item)"
+                md-items="item in ctrl.querySearch(ctrl.searchText)"
+                md-item-text="item.display"
+                md-min-length="1">
 
-                <input type="text"
-                    class="job-info__credit"
-                    required
-                    gr:datalist-input
-                    ng:model="ctrl.metadata.credit"
-                    ng:change="ctrl.save()"
-                    ng:model-options="{ updateOn: 'gr:datalist:update blur' }" />
-            </gr:datalist>
+                <md-item-template>
+                    <span
+                        md-highlight-text="ctrl.searchText"
+                        md-highlight-flags="^i">
+
+                        {{item.display}}
+                    </span>
+                </md-item-template>
+
+                <div ng-messages="autocompleteForm.autocomplete.$error">
+                    <div ng-message="required">This field is required</div>
+                </div>
+
+            </md-autocomplete>
 
             <button
                 class="job-editor__apply-to-all"
