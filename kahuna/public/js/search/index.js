@@ -11,6 +11,13 @@ import searchTemplate        from './view.html!text';
 import searchResultsTemplate from './results.html!text';
 import panelTemplate        from '../components/gr-panel/gr-panel.html!text';
 
+import 'webcomponentsjs';
+
+const importLink = document.createElement('link');
+importLink.rel = 'import';
+// TODO: path? install via jspm?
+importLink.href = '???/dist/windsock-widget.html';
+document.head.appendChild(importLink);
 
 export var search = angular.module('kahuna.search', [
     'ct.ui.router.extras.dsr',
@@ -24,6 +31,13 @@ export var search = angular.module('kahuna.search', [
 // TODO: add a resolver here so that if we error (e.g. 401) we don't keep trying
 // to render - similar to the image controller see:
 // https://github.com/guardian/media-service/pull/478
+search.filter('trust', ['$sce', function ($sce) {
+    return function (val) {
+        return $sce.trustAsResourceUrl(val);
+    };
+}]);
+
+
 search.config(['$stateProvider',
                function($stateProvider) {
 
@@ -43,8 +57,8 @@ search.config(['$stateProvider',
             }]
         },
         // FIXME: inject into template!?
-        controller: ['windsockApiUri', function(windsockApiUri) {
-            this.windsockApiUri = windsockApiUri;
+        controller: ['$scope', 'windsockApiUri', function($scope, windsockApiUri) {
+            $scope.windsockApiUri = windsockApiUri;
         }]
     });
 

@@ -12,7 +12,8 @@
 
         <file-uploader class="top-bar-item"></file-uploader>
 
-        <windsock-widget src="{{::windsockApiUri}}"
+        <windsock-widget ng:if="windsockApiUri"
+                         ng:src="{{::windsockApiUri | trust}}"
                          refresh="5000"
         ></windsock-widget>
     </gr-top-bar-actions>

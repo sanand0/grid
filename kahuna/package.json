@@ -30,7 +30,8 @@
       "theseus": "npm:theseus@~0.4.1",
       "theseus-angular": "npm:theseus-angular@^0.3.0",
       "ua-parser-js": "npm:ua-parser-js@0.7.3",
-      "webcomponents/webcomponentsjs": "github:webcomponents/webcomponentsjs@^0.7.5"
+      "webcomponents/webcomponentsjs": "github:webcomponents/webcomponentsjs@^0.7.5",
+      "webcomponentsjs": "github:webcomponents/webcomponentsjs@^0.7.7"
     },
     "devDependencies": {
       "traceur": "github:jmcriffey/bower-traceur@0.0.90",
