@@ -1954,11 +1954,11 @@ ui-archiver .archiver:hover {
 }
 
 .radio-list__label {
-   flex-grow: 1;
-   color: #CCC;
-   background-color: #444;
-   text-align: center;
-   cursor: pointer;
+    flex-grow: 1;
+    color: #CCC;
+    background-color: #444;
+    text-align: center;
+    cursor: pointer;
 }
 
 .radio-list--selected .radio-list__label-value {
@@ -1982,6 +1982,20 @@ ui-archiver .archiver:hover {
 
 .radio-list__label-value {
     padding: 5px 10px;
+}
+
+.radio-list__crop-item {
+    padding: 0;
+}
+
+.radio-list__crop-item__label {
+    padding: 0 10px;
+    background-color: #333;
+    height: calc(100% - 3px);
+}
+
+.radio-list--selected .radio-list__crop-item__label {
+    background-color: #666666;
 }
 
 .full-width {

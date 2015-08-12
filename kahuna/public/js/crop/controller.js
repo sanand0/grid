@@ -24,6 +24,13 @@ crop.controller('ImageCropCtrl',
     ctrl.videoRatio = 16 / 9;
     ctrl.freeRatio = null;
 
+    ctrl.ratios = [
+        { label: "Landscape", value: ctrl.landscapeRatio, icon: "crop_landscape" },
+        { label: "Portrait", value: ctrl.portraitRatio, icon: "crop_portrait" },
+        { label: "Video", value: ctrl.videoRatio, icon: "crop_16_9" },
+        { label: "Free-form", value: ctrl.freeRatio, icon: "crop_free" }
+    ];
+
     const originalDimensions = image.data.source.dimensions;
     ctrl.originalWidth  = originalDimensions.width;
     ctrl.originalHeight = originalDimensions.height;
@@ -38,9 +45,7 @@ crop.controller('ImageCropCtrl',
     };
 
     $scope.$watch('ctrl.aspect', (newAspect) => {
-        // freeRatio's 'null' gets converted to empty string somehow, meh
-        const isFreeRatio = newAspect === '';
-        if (isFreeRatio) {
+        if (newAspect === ctrl.freeRatio) {
             ctrl.coords = {
                 x1: 0,
                 y1: 0,

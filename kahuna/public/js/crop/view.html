@@ -8,25 +8,26 @@
     <gr-top-bar-actions>
         <div class="top-bar-item top-bar-item--static">{{ ctrl.cropWidth() }} &times; {{ ctrl.cropHeight() }}</div>
 
-        <label class="top-bar-item" title="landscape">
-            <input type="radio" ng:model="ctrl.aspect" value="{{ctrl.landscapeRatio}}"/>
-            <gr-icon>crop_landscape</gr-icon><span class="top-bar-item__label">landscape</span> ({{::ctrl.getRatioString(ctrl.landscapeRatio)}})
-        </label>
-
-        <label class="top-bar-item" title="portrait">
-            <input type="radio" ng:model="ctrl.aspect" value="{{ctrl.portraitRatio}}" />
-            <gr-icon>crop_portrait</gr-icon><span class="top-bar-item__label">portrait</span> ({{::ctrl.getRatioString(ctrl.portraitRatio)}})
-        </label>
-
-        <label class="top-bar-item" title="video">
-            <input type="radio" ng:model="ctrl.aspect" value="{{ctrl.videoRatio}}" />
-            <gr-icon>crop_16_9</gr-icon><span class="top-bar-item__label">video</span> ({{::ctrl.getRatioString(ctrl.videoRatio)}})
-        </label>
-
-        <label class="top-bar-item" title="free-form">
-            <input type="radio" ng:model="ctrl.aspect" value="{{ctrl.freeRatio}}" />
-            <gr-icon>crop_free</gr-icon><span class="top-bar-item__label">free-form</span>
-        </label>
+        <span ng:repeat="ratio in ctrl.ratios">
+            <input type="radio"
+                   id="crop_{{ratio.label}}"
+                   class="radio-list__circle"
+                   name="crop-aspect"
+                   ng:value="ratio.value"
+                   ng:model="ctrl.aspect">
+            <label for="crop_{{ratio.label}}"
+                   class="top-bar-item radio-list__label radio-list__crop-item"
+                   ng:class="{'radio-list--selected': ctrl.aspect === ratio.value}">
+                <div class="radio-list__selection-state"></div>
+                <div class="radio-list__crop-item__label">
+                    <gr-icon>{{ratio.icon}}</gr-icon>
+                    <span class="top-bar-item__label">
+                        {{ratio.label}}
+                        <span ng:if="ratio.value !== null">({{::ctrl.getRatioString(ratio.value)}})</span>
+                    </span>
+                </div>
+            </label>
+        </span>
 
         <div class="top-bar-item top-bar-item--full" ng:switch="ctrl.image.data.cost">
             <div ng:switch-when="pay"
