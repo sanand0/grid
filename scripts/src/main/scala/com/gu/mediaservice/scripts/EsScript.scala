@@ -51,7 +51,10 @@ object Reindex extends EsScript {
       def reindex {
         val scrollTime = new TimeValue(10 * 60 * 1000) // 10 minutes in milliseconds
         val scrollSize = 500
-        val srcIndex = getCurrentAlias.get // TODO: error handling if alias isn't attached
+        val srcIndex: String = getCurrentAlias match {
+          case Some(value) => value
+          case None => throw new Exception(s"Cannot find alias $imagesAlias")
+        }
 
         val srcIndexVersionCheck = """images_(\d+)""".r
         val srcIndexVersion = srcIndex match {
