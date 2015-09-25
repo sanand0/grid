@@ -96,6 +96,49 @@ lazyTable.controller('GuLazyTableCtrl', ['range', function(range) {
             filter(({$start, $end}) => $start <= $end).
             distinctUntilChanged(({$start, $end}) => `${$start}-${$end}`);
 
+        const rangeToUnloadBefore$ = combine$(
+            items$, loadedRangeStart$, preloadedRows$, columns$,
+            (items, loadedRangeStart, preloadedRows, columns) => {
+                // const $start = findIndexFrom(items, undefined, 0);
+                // const $end = findLastIndexFrom(items, undefined, endIndex);
+                const $start = 0;
+                const unloadedRows = preloadedRows * 2;
+                const endIndex = loadedRangeStart - (unloadedRows * columns);
+                const $end = endIndex;
+                // TODO: find start and end offset
+                // TODO: only invoke with defined range? esp for "post" current pos
+                return {$start, $end};
+            }
+        ).
+            // Debounce range loading, which also helps discard
+            // erroneous large ranges while combining
+            // loadedRangeStart$ and loadedRangeEnd$ changes (one after the other)
+            debounce(10).
+            // Ignore if either end isn't set (whole range already loaded)
+            filter(({$start, $end}) => $start !== -1 && $end !== -1).
+            distinctUntilChanged(({$start, $end}) => `${$start}-${$end}`);
+
+        const rangeToUnloadAfter$ = combine$(
+            items$, loadedRangeEnd$, preloadedRows$, columns$, itemsCount$,
+            (items, loadedRangeEnd, preloadedRows, columns, itemsCount) => {
+                const unloadedRows = preloadedRows * 2;
+                const $start = loadedRangeEnd + (unloadedRows * columns);
+                const $end = itemsCount - 1;
+                // TODO: find start and end offset
+                // TODO: only invoke with defined range? esp for "post" current pos
+                return {$start, $end};
+            }
+        ).
+            // Debounce range loading, which also helps discard
+            // erroneous large ranges while combining
+            // loadedRangeStart$ and loadedRangeEnd$ changes (one after the other)
+            debounce(10).
+            // Ignore if either end isn't set (whole range already loaded)
+            filter(({$start, $end}) => $start !== -1 && $end !== -1).
+            distinctUntilChanged(({$start, $end}) => `${$start}-${$end}`);
+
+        const rangeToUnload$ = rangeToUnloadBefore$.merge(rangeToUnloadAfter$);
+
         // Placeholders
         const placeholderExtraCount$ = mult$(columns$, preloadedRows$);
         const placeholderRangeStart$ = max$(sub$(loadedRangeStart$, placeholderExtraCount$), 0);
@@ -145,7 +188,7 @@ lazyTable.controller('GuLazyTableCtrl', ['range', function(range) {
         });
 
         return {
-            viewHeight$, rangeToLoad$, placeholderIndexes$
+            viewHeight$, rangeToLoad$, rangeToUnload$, placeholderIndexes$
         };
     };
 
@@ -223,6 +266,7 @@ lazyTable.directive('guLazyTable', ['$window', 'observe$',
             const {
                 guLazyTable:              itemsAttr,
                 guLazyTableLoadRange:     loadRangeFn,
+                guLazyTableUnloadRange:   unloadRangeFn,
                 guLazyTableCellMinWidth:  cellMinWidthAttr,
                 guLazyTableCellHeight:    cellHeightAttr,
                 guLazyTablePreloadedRows: preloadedRowsAttr
@@ -277,7 +321,7 @@ lazyTable.directive('guLazyTable', ['$window', 'observe$',
             const viewportBottom$ = add$(offsetTop$, offsetHeight$);
 
 
-            const {viewHeight$, rangeToLoad$, placeholderIndexes$} = ctrl.init({
+            const {viewHeight$, rangeToLoad$, rangeToUnload$, placeholderIndexes$} = ctrl.init({
                 items$, preloadedRows$, cellHeight$, cellMinWidth$,
                 containerWidth$, viewportTop$, viewportBottom$
             });
@@ -287,6 +331,10 @@ lazyTable.directive('guLazyTable', ['$window', 'observe$',
 
             subscribe$(scope, rangeToLoad$, range => {
                 scope.$eval(loadRangeFn, range);
+            });
+
+            subscribe$(scope, rangeToUnload$, range => {
+                scope.$eval(unloadRangeFn, range);
             });
 
             subscribe$(scope, placeholderIndexes$, indexes => {

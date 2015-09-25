@@ -209,6 +209,21 @@ results.controller('SearchResultsCtrl', [
             });
         };
 
+        ctrl.unloadRange = function(start, end) {
+            console.log("UNLOAD", start, end)
+            for (let i = start; i < end; i++) {
+                const imageToUnload = ctrl.imagesAll[i];
+                if (imageToUnload) {
+                    ctrl.imagesAll[i] = undefined;
+                    imagesPositions.delete(imageToUnload.data.id);
+                }
+
+                results.set(i, undefined);
+            }
+
+            ctrl.images = compact(ctrl.imagesAll);
+        };
+
         // == Vertical position ==
 
         // Logic to resume vertical position when navigating back to the same results
