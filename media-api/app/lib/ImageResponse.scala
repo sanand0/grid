@@ -107,13 +107,12 @@ object ImageResponse extends EditsResponse {
     val optimisedLink = Link("optimised", makeImgopsUri(new URI(secureUrl)))
     val imageLink = Link("ui:image",  s"${Config.kahunaUri}/images/$id")
 
-    val baseLinks = if (withWritePermission) {
-      List(editLink, optimisedLink, imageLink)
-    } else {
-      List(optimisedLink, imageLink)
-    }
+    val links = ListBuffer[Link](optimisedLink, imageLink)
 
-    if (valid) (cropLink :: baseLinks) else baseLinks
+    if (withWritePermission) links += editLink
+    if (valid) links += cropLink
+
+    links.toList
   }
 
   def imageActions(id: String, isPersisted: Boolean, withWritePermission: Boolean,
