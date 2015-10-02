@@ -3,14 +3,15 @@ import './gr-confirm-delete.css!';
 
 export const confirmDelete = angular.module('gr.confirmDelete', []);
 
-confirmDelete.directive('grConfirmDelete', ['$timeout', function($timeout) {
+confirmDelete.directive('grConfirmDelete', ['$timeout', 'onValChange', function($timeout, onValChange) {
 
     return {
         restrict: 'E',
         transclude: true,
         template: `
             <button class="gr-confirm-delete" type="button"
-                ng:click="showConfirm = true"
+                ng:click="onClick()"
+                ng:disabled="grDisabled"
                 ng:class="{'gr-confirm-delete--confirm': showConfirm}">
                 <gr-icon-label ng:if="!showConfirm" gr-icon="delete">{{label}}</gr-icon-label>
                 <gr-icon-label ng:if="showConfirm" gr-icon="delete">Confirm Delete</gr-icon-label>
@@ -20,14 +21,25 @@ confirmDelete.directive('grConfirmDelete', ['$timeout', function($timeout) {
             const onChange = () => scope.$eval(attrs.grOnConfirm);
 
             scope.label = attrs.grLabel || 'Delete';
+            scope.disabled = attrs.grDisabled || false;
 
-            element.on('click', function() {
-                element.on('click', onChange);
-                $timeout(() => {
-                    element.off('click', onChange);
-                    scope.showConfirm = false;
-                }, 5000);
+            attrs.$observe('grDisabled', function (val) {
+                console.log(val);
             });
+
+            scope.onClick = () => {
+                if (! scope.disabled) {
+                    scope.showConfirm = true;
+                    element.on('click', function() {
+                        element.on('click', onChange);
+                        $timeout(() => {
+                            element.off('click', onChange);
+                            scope.showConfirm = false;
+                        }, 5000);
+                    });
+                }
+            };
+
         }
     };
 
