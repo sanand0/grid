@@ -1,0 +1,35 @@
+<div ng:show="ctrl.usage.pending || ctrl.usage.published">
+    <div ng:if="ctrl.usage.pending">
+        <span class="flex-container gr-image-usage__field_title">
+            <span class="flex-spacer">Pending</span>
+            <span class="flex-right">{{ctrl.usage.pending.length}}</span>
+        </span>
+
+        <ul ng-repeat="data in ctrl.usage.pending.data">
+            <li>
+                <a ng-href="{{data.source.uri}}">
+                    <gr-icon>open_in_new</gr-icon>{{data.source.name}}
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div ng:if="ctrl.usage.published">
+        <span class="flex-container gr-image-usage__field_title">
+            <span class="flex-spacer">Published</span>
+            <span class="flex-right">{{ctrl.usage.published.length}}</span>
+        </span>
+
+        <ul ng-repeat="data in ctrl.usage.published.data">
+            <li>
+                <a ng-href="{{data.source.uri}}">
+                    <gr-icon>open_in_new</gr-icon>{{data.source.name}}
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div ng:hide="ctrl.usage.pending || ctrl.usage.published">
+    None
+</div>
