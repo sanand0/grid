@@ -4,3 +4,11 @@
     vertical-align: top;
     text-align: left;
 }
+
+gr-image-usage-list {
+    display: block;
+}
+
+gr-image-usage-list .date-added {
+    font-size: 11px;
+}
