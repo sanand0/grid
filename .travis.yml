@@ -60,7 +60,7 @@ env:
   # TODO: other projects: common-lib? elasticsearch, ftp-watcher, imgops
 
 script:
-  - sbt ++$TRAVIS_SCALA_VERSION -Dfile.encoding=UTF8 -J-XX:ReservedCodeCacheSize=256M "project $PROJECT" test dist
+  - sbt ++$TRAVIS_SCALA_VERSION -Dfile.encoding=UTF8 -J-XX:ReservedCodeCacheSize=256M "project $PROJECT" test play-artifact
   # Tricks to avoid unnecessary cache updates
   - find $HOME/.sbt -name "*.lock" | xargs rm
   - find $HOME/.ivy2 -name "ivydata-*.properties" | xargs rm
