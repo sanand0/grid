@@ -66,6 +66,7 @@ module.exports = {
                 Logger.log(upload.params.stage, 'GOT ERROR', error);
             });
             uploadRequest.on("error", observer.onError.bind(observer));
+            Logger.log(upload.params.stage, 'LISTENERS SET', {});
         });
     }
 };
