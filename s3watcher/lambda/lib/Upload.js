@@ -58,8 +58,12 @@ module.exports = {
 
         return Rx.Observable.create(function(observer){
             uploadRequest.on("response", function(response){
+                Logger.log(upload.params.stage, 'GOT RESPONSE', response);
                 observer.onNext(uploadResult(response));
                 observer.onCompleted();
+            });
+            uploadRequest.on("error", function(error) {
+                Logger.log(upload.params.stage, 'GOT ERROR', error);
             });
             uploadRequest.on("error", observer.onError.bind(observer));
         });
