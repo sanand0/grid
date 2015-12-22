@@ -1,5 +1,6 @@
 const request = require('request');
 const Rx = require('rx');
+const Logger       = require('./Logger');
 
 
 module.exports = {
@@ -53,9 +54,12 @@ module.exports = {
 
         const uploadRequest = request.post(options);
 
+        Logger.log(upload.params.stage, 'POST', options);
+
         return Rx.Observable.create(function(observer){
             uploadRequest.on("response", function(response){
                 observer.onNext(uploadResult(response));
+                observer.onCompleted();
             });
             uploadRequest.on("error", observer.onError.bind(observer));
         });

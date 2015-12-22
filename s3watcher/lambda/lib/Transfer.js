@@ -52,6 +52,8 @@ module.exports = {
                 Expires: urlExpiryInSeconds
             });
 
+            Logger.log(config.stage, 'Got signature: ' + signedUrl, s3Object);
+
             return Upload.
                 postUri(upload, signedUrl).
                 retry(5).
