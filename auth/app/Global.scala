@@ -14,7 +14,7 @@ object Global extends WithFilters(CorsFilter, RequestLoggingFilter, new GzipFilt
 
   override def beforeStart(app: Application) {
 
-    println("dont ever merge this")
+    println("dont ever merge this ever")
 
     val allAppConfig: Seq[(String, ConfigValue)] =
       Config.appConfig.underlying.entrySet.asScala.toSeq.map(entry => (entry.getKey, entry.getValue))
