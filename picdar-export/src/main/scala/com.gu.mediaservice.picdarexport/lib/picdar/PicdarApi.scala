@@ -60,6 +60,7 @@ trait PicdarApi extends HttpClient with PicdarInterface with LogHelper {
       }
     }
 
+
     Logger.debug(s"searching media mogul for assets $dateField on $dateRange")
     for {
       response    <- post(messages.search(mak, dateField, dateRange, urn, query))
